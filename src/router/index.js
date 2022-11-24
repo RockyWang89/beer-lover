@@ -14,7 +14,7 @@ function AppRouter() {
     return (
         <Routes>
             <Route path='/home' element={lazyLoad('pages/Beers')}/>
-            <Route path='/detail/:id' element={lazyLoad('pages/BeerDetail')}/>
+            <Route path='/detail' element={lazyLoad('pages/BeerDetail')}/>
             <Route path='*' element={<Navigate to="/home"/>} />
         </Routes>
     );
