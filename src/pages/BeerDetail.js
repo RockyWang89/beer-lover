@@ -1,11 +1,12 @@
 import axios from 'axios';
-import {useState, useEffect} from 'react';
+import {useContext, useEffect} from 'react';
 import {useSearchParams} from 'react-router-dom';
+import globalContext from '../globalContext';
 
 function BeerDetail() {
-    const [beerDetail, setBeerDetail] = useState({});
     const [searchParams, setSearchParams] = useSearchParams();
     const beerId = searchParams.get('id');
+    const {state, dispatch} = useContext(globalContext);
 
     useEffect(()=>{
         axios({
@@ -13,13 +14,16 @@ function BeerDetail() {
             url: `https://api.punkapi.com/v2/beers/${beerId}`
         })
         .then((res)=>{
-            setBeerDetail(res.data[0]);
+            dispatch({
+                type: "setBeerDetail",
+                value: res.data[0]
+            });
         });
     }, []);
 
     return (
         <div>
-            {JSON.stringify(beerDetail)}
+            {JSON.stringify(state.beerDetail)}
         </div>
     );
 }
