@@ -12,7 +12,7 @@ function Beers() {
     useEffect(()=>{
         axios({
             method: 'get',
-            url: 'https://api.punkapi.com/v2/beers'
+            url: 'https://api.punkapi.com/v2/beers?page=1&per_page=40'
         })
         .then((res)=>{
             dispatch({
@@ -60,11 +60,6 @@ function Beers() {
         }));
     }, [state]);
 
-    // function goToDetail(id) {
-    //     navigate(`/detail?id=${id}`);
-    // }
-
-    // console.log("Beers comp rendered")
     return (
         <div>
             <SearchingBox updateListView={updateListView}/>

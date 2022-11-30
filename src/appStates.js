@@ -11,6 +11,9 @@ const reducer = (prevState, action)=>{
             newState = {...prevState, [action.value.key]: action.value.value};
             //console.log(newState);
             break;
+        case "setSuggestedList":
+            newState.suggestedList = [...action.value];
+            break;
         default:
     }
     return newState;
@@ -23,7 +26,8 @@ const initialState = {
     brewedBefore: "",
     brewedAfter: "",
     abvGreaterThan: "",
-    abvLessThan: ""
+    abvLessThan: "",
+    suggestedList: []
 }
 
 export {reducer, initialState};
