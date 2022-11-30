@@ -8,8 +8,8 @@ const reducer = (prevState, action)=>{
             newState.beerDetail = {...action.value};
             break;
         case "updateConditions":
-            newState = {...prevState, ...action.value};
-            console.log(newState);
+            newState = {...prevState, [action.value.key]: action.value.value};
+            //console.log(newState);
             break;
         default:
     }

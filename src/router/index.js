@@ -1,5 +1,6 @@
 import React, {Suspense} from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom';
+import Beers from '../pages/Beers';
 
 function lazyLoad(path) {
     const LazyComponent = React.lazy(()=>import(`../${path}`));
@@ -13,7 +14,7 @@ function lazyLoad(path) {
 function AppRouter() {
     return (
         <Routes>
-            <Route path='/home' element={lazyLoad('pages/Beers')}/>
+            <Route path='/home' element={<Beers />}/>
             <Route path='/detail' element={lazyLoad('pages/BeerDetail')}/>
             <Route path='*' element={<Navigate to="/home"/>} />
         </Routes>

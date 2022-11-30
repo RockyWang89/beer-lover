@@ -1,4 +1,4 @@
-import {useEffect, useContext, useMemo} from 'react';
+import {useEffect, useContext, useMemo, useState, useCallback} from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import globalContext from '../globalContext';
@@ -7,6 +7,7 @@ import SearchingBox from '../components/SearchingBox';
 function Beers() {
     const navigate = useNavigate();
     const {state, dispatch} = useContext(globalContext);
+    var [listView, setListView] = useState([]);
 
     useEffect(()=>{
         axios({
@@ -17,9 +18,15 @@ function Beers() {
             dispatch({
                 type: "setBeerList",
                 value: res.data
-            })
+            });
         })
     }, []);
+
+    useEffect(()=>{
+        setListView(filteredList.map((item)=>{
+            return <li key={item.id} onClick={()=>goToDetail(item.id)}>{item.name}</li>
+        }));
+    }, [state.beerList]);
 
     //Conditional searching: use useMemo to filter the displaying list of beers
     const filteredList = useMemo(()=>{
@@ -45,17 +52,24 @@ function Beers() {
         });
     }, [state]);
 
-    function goToDetail(id) {
-        navigate(`/detail?id=${id}`);
-    }
+    const goToDetail = useCallback((id)=>navigate(`/detail?id=${id}`), []);
 
+    const updateListView = useCallback(()=>{
+        setListView(filteredList.map((item)=>{
+            return <li key={item.id} onClick={()=>goToDetail(item.id)}>{item.name}</li>
+        }));
+    }, [state]);
+
+    // function goToDetail(id) {
+    //     navigate(`/detail?id=${id}`);
+    // }
+
+    // console.log("Beers comp rendered")
     return (
         <div>
-            <SearchingBox />
+            <SearchingBox updateListView={updateListView}/>
             <ul>
-                {filteredList.map((item)=>{
-                    return <li key={item.id} onClick={()=>goToDetail(item.id)}>{item.name}</li>
-                })}
+                {listView}
             </ul>
         </div>
     );

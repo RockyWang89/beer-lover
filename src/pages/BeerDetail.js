@@ -21,6 +21,7 @@ function BeerDetail() {
         });
     }, []);
 
+    // console.log("beer detail rendered");
     return (
         <div>
             {JSON.stringify(state.beerDetail)}
