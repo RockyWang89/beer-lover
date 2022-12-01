@@ -26,7 +26,7 @@ function BeerList() {
     const loadMoreButton = useMemo(()=>{
         return (state.keyword||state.brewedBefore||state.brewedAfter||state.abvGreaterThan||state.abvLessThan)?
             null:<button onClick={loadNewPage}>Load More</button>;
-    }, [state, loadNewPage]);
+    }, [state]);
 
     const view = useMemo(()=>{
         return (
@@ -41,7 +41,7 @@ function BeerList() {
                 {loadMoreButton}
             </div>
         );
-    },[state.filteredList, goToDetail, loadMoreButton])
+    },[state.filteredList])
 
     return view;
 }

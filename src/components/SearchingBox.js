@@ -33,7 +33,7 @@ function SearchingBox() {
             type: "setFilteredList",
             value: filteredList
         });
-    }, [state.beerList, filteredList]);
+    }, [state.beerList]);
 
     const handleChange = useCallback((event) => {
         const {name, value} = event.target;
