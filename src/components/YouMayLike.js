@@ -25,7 +25,6 @@ function YouMayLike(props) {
         else {
             resultList = arr;
         }
-        console.log(resultList);
         return resultList;
     }, []);
 
@@ -48,9 +47,6 @@ function YouMayLike(props) {
     return (
         <div>
             <ul>
-                {/* <li><a onClick={()=>jumpTo(4)}>beer 4</a></li>
-                <li><a onClick={()=>jumpTo(5)}>beer 5</a></li>
-                <li><a onClick={()=>jumpTo(6)}>beer 6</a></li> */}
                 {state.suggestedList.map(item => <li key={item.id}><a onClick={()=>jumpTo(item.id)}>{item.name}</a></li>)}
             </ul>
         </div>

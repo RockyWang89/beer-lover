@@ -2,7 +2,15 @@ const reducer = (prevState, action)=>{
     let newState = {...prevState};
     switch(action.type) {
         case "setBeerList":
-            newState.beerList = [...newState.beerList, ...action.value];
+            newState = {
+                ...newState,
+                beerList: [...newState.beerList, ...action.value],
+                keyword: "",
+                brewedBefore: "",
+                brewedAfter: "",
+                abvGreaterThan: "",
+                abvLessThan: ""
+            }
             break;
         case "setBeerDetail":
             newState.beerDetail = {...action.value};
@@ -13,8 +21,8 @@ const reducer = (prevState, action)=>{
         case "setSuggestedList":
             newState.suggestedList = [...action.value];
             break;
-        case "addPage":
-            newState.page++;
+        case "setFilteredList":
+            newState.filteredList = [...action.value]
             break;
         default:
     }
@@ -29,7 +37,8 @@ const initialState = {
     brewedAfter: "",
     abvGreaterThan: "",
     abvLessThan: "",
-    suggestedList: []
+    suggestedList: [],
+    filteredList: []
 }
 
 export {reducer, initialState};

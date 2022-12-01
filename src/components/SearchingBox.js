@@ -1,10 +1,41 @@
-import { useContext } from "react";
+import { useContext, useMemo, useEffect, useCallback } from "react";
 import globalContext from "../globalContext";
 
-function SearchingBox(props) {
+function SearchingBox() {
     const {state, dispatch} = useContext(globalContext);
 
-    function handleChange(event) {
+    //Conditional searching: use useMemo to filter the displaying list of beers
+    const filteredList = useMemo(()=>{
+        const upperKeyword = state.keyword.toUpperCase();
+        return state.beerList.filter(item => {
+            const yearBrewed = item.first_brewed?item.first_brewed.split('/')[1]+'-'+item.first_brewed.split('/')[0]:false;
+            return (
+                (
+                    item.name.toUpperCase().includes(upperKeyword)||
+                    item.tagline.toUpperCase().includes(upperKeyword)||
+                    item.description.toUpperCase().includes(upperKeyword)||
+                    item.ingredients.malt.some(maltItem => maltItem.name.toUpperCase().includes(upperKeyword))||
+                    item.ingredients.hops.some(hopsItem => hopsItem.name.toUpperCase().includes(upperKeyword))||
+                    item.ingredients.yeast.toUpperCase().includes(upperKeyword)
+                )&&
+                (
+                    yearBrewed?(state.brewedBefore?yearBrewed>=state.brewedAfter&&yearBrewed<=state.brewedBefore:yearBrewed>=state.brewedAfter):false
+                )&&
+                (
+                    item.abv?(state.abvLessThan?item.abv>=state.abvGreaterThan&&item.abv<=state.abvLessThan:item.abv>=state.abvGreaterThan):false
+                )
+            )
+        });
+    }, [state]);
+
+    useEffect(()=>{
+        dispatch({
+            type: "setFilteredList",
+            value: filteredList
+        });
+    }, [state.beerList, filteredList]);
+
+    const handleChange = useCallback((event) => {
         const {name, value} = event.target;
         dispatch({
             type: "updateConditions",
@@ -13,14 +44,18 @@ function SearchingBox(props) {
                 value: value
             }
         });
-    }
+    });
 
-    // console.log("searching box rendered")
     return (
         <div>
             <div>
                 <input type="text" name="keyword" placeholder="Please input a keyword" value={state.keyword} onChange={handleChange} />&nbsp;
-                <button onClick={()=>props.updateListView()}
+                <button onClick={()=>{
+                    dispatch({
+                        type: "setFilteredList",
+                        value: filteredList
+                    });
+                }}
                 >Search</button>
             </div>
             <div>
