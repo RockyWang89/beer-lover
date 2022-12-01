@@ -7,25 +7,47 @@ import SearchingBox from '../components/SearchingBox';
 function Beers() {
     const navigate = useNavigate();
     const {state, dispatch} = useContext(globalContext);
-    var [listView, setListView] = useState([]);
+    const [listView, setListView] = useState([]);
 
-    useEffect(()=>{
+    const loadNewPage = useCallback(()=>{
+        const nextPage = (state.beerList.length/20)+1;
         axios({
-            method: 'get',
-            url: 'https://api.punkapi.com/v2/beers?page=1&per_page=40'
+            method: "get",
+            url: `https://api.punkapi.com/v2/beers?page=${nextPage}&per_page=20`
         })
         .then((res)=>{
             dispatch({
                 type: "setBeerList",
                 value: res.data
             });
-        })
-    }, []);
+        });
+    }, [state.beerList]);
+
+    const goToDetail = useCallback((id)=>navigate(`/detail?id=${id}`), []);
+
+    const updateListView = useCallback(()=>{
+        const viewValue = (
+            <div>
+                <ul>
+                    {
+                        filteredList.map((item)=>{
+                            return <li key={item.id} onClick={()=>goToDetail(item.id)}>{item.name}</li>
+                        })
+                    }
+                </ul>
+                {loadMoreButton}
+            </div>
+        );
+        setListView(viewValue);
+    }, [state]);
+
+    const loadMoreButton = useMemo(()=>{
+        return (state.keyword||state.brewedBefore||state.brewedAfter||state.abvGreaterThan||state.abvLessThan)?
+            null:<button onClick={loadNewPage}>Load More</button>;
+    }, [state]);
 
     useEffect(()=>{
-        setListView(filteredList.map((item)=>{
-            return <li key={item.id} onClick={()=>goToDetail(item.id)}>{item.name}</li>
-        }));
+        updateListView();
     }, [state.beerList]);
 
     //Conditional searching: use useMemo to filter the displaying list of beers
@@ -52,20 +74,10 @@ function Beers() {
         });
     }, [state]);
 
-    const goToDetail = useCallback((id)=>navigate(`/detail?id=${id}`), []);
-
-    const updateListView = useCallback(()=>{
-        setListView(filteredList.map((item)=>{
-            return <li key={item.id} onClick={()=>goToDetail(item.id)}>{item.name}</li>
-        }));
-    }, [state]);
-
     return (
         <div>
             <SearchingBox updateListView={updateListView}/>
-            <ul>
-                {listView}
-            </ul>
+            {listView}
         </div>
     );
 }

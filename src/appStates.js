@@ -2,17 +2,19 @@ const reducer = (prevState, action)=>{
     let newState = {...prevState};
     switch(action.type) {
         case "setBeerList":
-            newState.beerList = [...action.value];
+            newState.beerList = [...newState.beerList, ...action.value];
             break;
         case "setBeerDetail":
             newState.beerDetail = {...action.value};
             break;
         case "updateConditions":
             newState = {...prevState, [action.value.key]: action.value.value};
-            //console.log(newState);
             break;
         case "setSuggestedList":
             newState.suggestedList = [...action.value];
+            break;
+        case "addPage":
+            newState.page++;
             break;
         default:
     }
