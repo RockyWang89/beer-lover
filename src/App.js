@@ -8,6 +8,7 @@ import axios from 'axios';
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  //Get initial beer data from API
   useEffect(()=>{
     axios({
         method: 'get',
