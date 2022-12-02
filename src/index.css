@@ -1,0 +1,76 @@
+body, div, h1, h2, h3, h4, h5, h6, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/*BeerList CSS start*/
+.beer-list {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.beer-card {
+    width: 95%;
+    height: 100%;
+    margin: 0px auto;
+}
+
+.beer-card-cover {
+    width: 100%;
+    aspect-ratio: 1/1;
+    text-align: center;
+}
+
+.beer-card-cover img {
+    display: inline-block;
+    height: 100%;
+}
+
+.card-meta {
+    text-align: center;
+}
+
+.loadmore-button-wrapper {
+    text-align: center;
+    width: 100%;
+}
+
+.loadmore-btn {
+    font-size: 18px;
+}
+/*BeerList CSS end*/
+
+/*SearchingBox CSS start*/
+.searching-input-wrapper {
+    margin: 10px 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.searching-input-wrapper h4 {
+    line-height: 30px;
+    font-size: 16px;
+}
+
+.abv-input {
+    width: 100px;
+}
+
+.month-input {
+    width: 160px;
+}
+
+.search-button {
+    width: 160px;
+}
+
+@media (max-width: 992px) {
+    .searching-input-wrapper{
+        width: 100%;
+    }
+}
+/*SearchingBox CSS end*/
+

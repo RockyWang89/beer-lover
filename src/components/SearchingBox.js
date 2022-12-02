@@ -1,5 +1,6 @@
 import { useContext, useMemo, useEffect, useCallback } from "react";
 import globalContext from "../globalContext";
+import {Row, Col, Input, Button} from 'antd';
 
 function SearchingBox() {
     const {state, dispatch} = useContext(globalContext);
@@ -47,26 +48,37 @@ function SearchingBox() {
     });
 
     return (
-        <div>
-            <div>
-                <input type="text" name="keyword" placeholder="Please input a keyword" value={state.keyword} onChange={handleChange} />&nbsp;
-                <button onClick={()=>{
-                    dispatch({
-                        type: "setFilteredList",
-                        value: filteredList
-                    });
-                }}
-                >Search</button>
-            </div>
-            <div>
-                <h4>Year of first brewing</h4>
-                <input type="month" name="brewedAfter" value={state.brewedAfter} onChange={handleChange} /> To <input type="month" name="brewedBefore" value={state.brewedBefore} onChange={handleChange} />
-            </div>
-            <div>
-                <h4>Alcohol degree</h4>
-                <input type="text" name="abvGreaterThan" value={state.abvGreaterThan} onChange={handleChange} /> To <input type="text" name="abvLessThan" value={state.abvLessThan} onChange={handleChange} />
-            </div>
-        </div>
+        <Row align="center">
+            <Col className="searching-input-wrapper">
+                <div>
+                    <h4>Key word</h4>
+                    <Input type="text" name="keyword" placeholder="Please input a keyword" value={state.keyword} onChange={handleChange} />
+                </div>
+            </Col>
+            <Col className="searching-input-wrapper">
+                <div>
+                    <h4>Year of first brewing</h4>
+                    <Input type="month" name="brewedAfter" value={state.brewedAfter} onChange={handleChange} className="month-input" /> To <Input type="month" name="brewedBefore" value={state.brewedBefore} onChange={handleChange} className="month-input" />
+                </div>
+            </Col>
+            <Col className="searching-input-wrapper">
+                <div>
+                    <h4>Alcohol degree</h4>
+                    <Input type="text" name="abvGreaterThan" value={state.abvGreaterThan} onChange={handleChange} className="abv-input" /> To <Input type="text" name="abvLessThan" value={state.abvLessThan} onChange={handleChange} className="abv-input" />
+                </div>
+            </Col>
+            <Col className="searching-input-wrapper">
+                <Button 
+                    onClick={()=>{
+                        dispatch({
+                            type: "setFilteredList",
+                            value: filteredList
+                        });
+                    }}
+                    className="search-button"
+                >Search</Button>
+            </Col>
+        </Row>
     );
 }
 

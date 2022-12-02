@@ -1,5 +1,6 @@
 import SearchingBox from '../components/SearchingBox';
 import BeerList from '../components/BeerList';
+import {Row, Col} from 'antd';
 
 function Beers() {
 
