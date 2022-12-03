@@ -1,4 +1,6 @@
 # Beers Lover
+- Description:
+You can find out the beers you love here and learn more info about beers.
 
 - Main features:
 1. Get beers list from online API
