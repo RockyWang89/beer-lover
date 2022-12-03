@@ -27,13 +27,13 @@ function BeerList() {
 
     const loadMoreButton = useMemo(()=>{
         return (state.keyword||state.brewedBefore||state.brewedAfter||state.abvGreaterThan||state.abvLessThan)?
-            null:<a onClick={loadNewPage} className="loadmore-btn">View More</a>;
+            null:<a onClick={loadNewPage}>View More</a>;
     }, [state]);
 
     const view = useMemo(()=>{
         return (
             <Row>
-                <Row className="beer-list" gutter={[0,16]}>
+                <Row className="wrapper beer-list" gutter={[0,16]}>
                     {
                         state.filteredList.map((item)=>{
                             return (
@@ -42,7 +42,7 @@ function BeerList() {
                                         hoverable
                                         cover={
                                             <div className="beer-card-cover">
-                                                <img alt={item.name} src={item.image_url} />
+                                                <img alt={item.name} src={item.image_url?item.image_url:"https://images.punkapi.com/v2/keg.png"} />
                                             </div>
                                         }
                                         className="beer-card"

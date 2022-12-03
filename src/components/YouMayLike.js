@@ -1,9 +1,11 @@
 import {useContext, useCallback, useEffect} from 'react';
 import axios from 'axios';
+import { Row, Col, Card } from 'antd';
 import globalContext from '../globalContext';
 
 function YouMayLike(props) {
     const {state, dispatch} = useContext(globalContext);
+    const {Meta} = Card;
 
     const getRandomIndex = useCallback((listLength)=>{
         return Math.floor(Math.random()*listLength);
@@ -46,9 +48,29 @@ function YouMayLike(props) {
 
     return (
         <div>
-            <ul>
-                {state.suggestedList.map(item => <li key={item.id}><a onClick={()=>jumpTo(item.id)}>{item.name}</a></li>)}
-            </ul>
+            <h1 className='suggested-beers-title'>You may also like</h1>
+            <Row className="wrapper suggested-beers" gutter={[0,16]}>
+                {
+                    state.suggestedList.map((item)=>{
+                        return (
+                            <Col key={item.id} lg={6} sm={24} xs={24} className="gutter-row">
+                                <Card
+                                    hoverable
+                                    cover={
+                                        <div className="beer-card-cover">
+                                            <img alt="Image not found" src={item.image_url?item.image_url:"https://images.punkapi.com/v2/keg.png"} />
+                                        </div>
+                                    }
+                                    className="beer-card"
+                                    onClick={()=>jumpTo(item.id)}
+                                >
+                                    <Meta title={item.name} description={item.tagline} className="card-meta"/>
+                                </Card>
+                            </Col>
+                        );
+                    })
+                }
+            </Row>
         </div>
     );
 }

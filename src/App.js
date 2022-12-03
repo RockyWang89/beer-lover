@@ -27,12 +27,12 @@ function App() {
 
   return (
     <Layout>
-      <Header style={{backgroundColor: "transparent"}}>
+      <Header className='header'>
         <div>
-          <h1>Find Beers You Love</h1>
+          <h1 className='header-title'>Find The Beers You Love</h1>
         </div>
       </Header>
-      <Content>
+      <Content className='content'>
         <globalContext.Provider 
           value={
             {
@@ -46,10 +46,8 @@ function App() {
           </HashRouter>
         </globalContext.Provider>
       </Content>
-      <Footer>
-        <div>
-          This is Footer
-        </div>
+      <Footer className='footer'>
+        <p>Beer Lover -- Copyright &copy; 2022 Rocky Wang</p>
       </Footer>
     </Layout>
   );
