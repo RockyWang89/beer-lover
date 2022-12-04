@@ -1,6 +1,6 @@
 import SearchingBox from '../components/SearchingBox';
 import BeerList from '../components/BeerList';
-import {Row, Col} from 'antd';
+import ScrollToTop from 'react-scroll-to-top';
 
 function Beers() {
 
@@ -8,6 +8,7 @@ function Beers() {
         <div>
             <SearchingBox />
             <BeerList />
+            <ScrollToTop smooth/>
         </div>
     );
 }
