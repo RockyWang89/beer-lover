@@ -27,7 +27,10 @@ const reducer = (prevState, action)=>{
             break;
         //Set the filtered beer list into the state seperately to control when to update the beer list displayed on the browser
         case "setFilteredList":
-            newState.filteredList = [...action.value]
+            newState.filteredList = [...action.value];
+            break;
+        case "switchLoading":
+            newState.loading = !newState.loading;
             break;
         default:
     }
@@ -43,7 +46,8 @@ const initialState = {
     abvGreaterThan: "",
     abvLessThan: "",
     suggestedList: [],
-    filteredList: []
+    filteredList: [],
+    loading: false
 }
 
 export {reducer, initialState};

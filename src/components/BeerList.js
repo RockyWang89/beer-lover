@@ -1,7 +1,7 @@
 import { useContext, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Row, Col, Card } from "antd";
+import { Row, Col, Card, Button } from "antd";
 import globalContext from "../globalContext";
 
 function BeerList() {
@@ -13,11 +13,13 @@ function BeerList() {
 
     const loadNewPage = useCallback(()=>{
         const nextPage = (state.beerList.length/20)+1;
+        dispatch({type: "switchLoading"});
         axios({
             method: "get",
             url: `https://api.punkapi.com/v2/beers?page=${nextPage}&per_page=20`
         })
         .then((res)=>{
+            dispatch({type: "switchLoading"});
             dispatch({
                 type: "setBeerList",
                 value: res.data
@@ -27,7 +29,7 @@ function BeerList() {
 
     const loadMoreButton = useMemo(()=>{
         return (state.keyword||state.brewedBefore||state.brewedAfter||state.abvGreaterThan||state.abvLessThan)?
-            null:<a onClick={loadNewPage}>View More</a>;
+            null:<Button onClick={loadNewPage} loading={state.loading}>View More</Button>;
     }, [state]);
 
     const view = useMemo(()=>{
@@ -58,7 +60,7 @@ function BeerList() {
                 <div className="loadmore-button-wrapper">{loadMoreButton}</div>
             </Row>
         );
-    },[state.filteredList])
+    },[state.filteredList, state.loading])
 
     return view;
 }
