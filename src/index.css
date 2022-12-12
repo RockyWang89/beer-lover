@@ -28,12 +28,12 @@ button:hover, button:active {
 /*Banner CSS start*/
 .header {
     height: auto !important;
-    background-image: url('./beer-banner.jpeg') !important;
+    background-image: url('/public/beer-banner.jpeg') !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
     background-size: cover !important;
     background-color: grey !important;
-    background-blend-mode:multiply  ;
+    background-blend-mode: multiply;
 }
 
 .header-title {
