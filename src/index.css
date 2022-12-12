@@ -28,6 +28,7 @@ button:hover, button:active {
 /*Banner CSS start*/
 .header {
     height: auto !important;
+    /*If using AWS Amplify to deploy, it will work only with png format*/
     background-image: url('./beer-banner.png') !important;
     background-repeat: no-repeat !important;
     background-position: center !important;

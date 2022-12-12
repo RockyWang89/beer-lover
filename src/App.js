@@ -9,6 +9,7 @@ import {reducer, initialState} from './appStates';
 const {Header, Footer, Content} = Layout;
 
 function App() {
+  //Use useReducer hook and context to manage the state all together out of the components
   const [state, dispatch] = useReducer(reducer, initialState);
 
   //Get initial beer data from API

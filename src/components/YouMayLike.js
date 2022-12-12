@@ -15,6 +15,7 @@ function YouMayLike(props) {
         props.setSearchParams({id:id});
     });
 
+    //make a suggested beer list
     const buildSuggestedList = useCallback((arr, n)=>{
         const arrLength = arr.length;
         let resultList = [];
@@ -30,6 +31,7 @@ function YouMayLike(props) {
         return resultList;
     }, []);
 
+    //retrieve beers with similar abv and update suggested list in the state
     useEffect(()=>{
         if(state.beerDetail.abv) {
             axios({

@@ -9,8 +9,10 @@ function BeerList() {
     const {state, dispatch} = useContext(globalContext);
     const {Meta} = Card;
 
+    //Jump to the detail page when click on a specific beer
     const goToDetail = useCallback((id)=>navigate(`/detail?id=${id}`));
 
+    //Load 20 more beers from the public API when click the view more button
     const loadNewPage = useCallback(()=>{
         const nextPage = (state.beerList.length/20)+1;
         dispatch({type: "switchLoading"});
@@ -27,11 +29,13 @@ function BeerList() {
         });
     }, [state.beerList]);
 
+    //Hide the button while using the searching box
     const loadMoreButton = useMemo(()=>{
         return (state.keyword||state.brewedBefore||state.brewedAfter||state.abvGreaterThan||state.abvLessThan)?
             null:<Button onClick={loadNewPage} loading={state.loading}>View More</Button>;
     }, [state]);
 
+    //Generate the view of the component with useMemo as it should not being affected by any change of the state
     const view = useMemo(()=>{
         return (
             <Row>

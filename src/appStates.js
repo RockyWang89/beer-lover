@@ -29,6 +29,7 @@ const reducer = (prevState, action)=>{
         case "setFilteredList":
             newState.filteredList = [...action.value];
             break;
+        //Control the loading icon of 'view more button'
         case "switchLoading":
             newState.loading = !newState.loading;
             break;
@@ -38,15 +39,15 @@ const reducer = (prevState, action)=>{
 };
 
 const initialState = {
-    beerList: [],
-    beerDetail: {},
+    beerList: [],  //used for storing the row beer data
+    beerDetail: {},  //used for storing specific beer detail
     keyword: "",
     brewedBefore: "",
     brewedAfter: "",
     abvGreaterThan: "",
     abvLessThan: "",
-    suggestedList: [],
-    filteredList: [],
+    suggestedList: [],  //used for storing the beer list of YouMayLike component
+    filteredList: [],  //used for storing the result beer list after click search button
     loading: false
 }
 

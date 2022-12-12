@@ -11,6 +11,7 @@ function BeerDetail() {
     const {state, dispatch} = useContext(globalContext);
     const navigate = useNavigate();
 
+    //retrieve the specific beer detail via beer id passed through the query in the link
     useEffect(()=>{
         axios({
             method: "get",

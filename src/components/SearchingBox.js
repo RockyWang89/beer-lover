@@ -29,6 +29,7 @@ function SearchingBox() {
         });
     }, [state]);
 
+    //update the filteredList in state when the beerList updates
     useEffect(()=>{
         dispatch({
             type: "setFilteredList",
@@ -36,6 +37,7 @@ function SearchingBox() {
         });
     }, [state.beerList]);
 
+    //build the inputs as controlled components
     const handleChange = useCallback((event) => {
         const {name, value} = event.target;
         dispatch({
