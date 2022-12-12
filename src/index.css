@@ -28,7 +28,7 @@ button:hover, button:active {
 /*Banner CSS start*/
 .header {
     height: auto !important;
-    background-image: url('/public/beer-banner.jpeg') !important;
+    background-image: url('./beer-banner.png') !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
     background-size: cover !important;
